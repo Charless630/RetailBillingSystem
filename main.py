@@ -40,4 +40,6 @@ searchButton.grid(row=0, column=6, padx=20, pady=8)
 productsFrame = Frame(root)
 productsFrame.pack()
 
+cosmeticsFrame = LabelFrame(productsFrame, text='Comestics', )
+
 root.mainloop()
