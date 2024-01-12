@@ -1,5 +1,11 @@
 from tkinter import *
+# Functionality PART
 
+def total():
+    soapprice = int(bathsoapEntry.get())*20
+    
+
+# GUI PART
 root = Tk()
 root.title("Retail Billing System")
 root.geometry("1270x685")
@@ -218,7 +224,7 @@ buttonFrame = Frame(billmenuFrame, bd=8, relief=GROOVE)
 buttonFrame.grid(row=0, column=4, rowspan=3)
 
 totalButton = Button(buttonFrame, text='Total', font=('arial', 16, 'bold'), bg='gray20', fg='aliceblue',
-                     bd=5, width=8, pady=10)
+                     bd=5, width=8, pady=10, command=total)
 totalButton.grid(row=0, column=0, pady=20, padx=5)
 
 billButton = Button(buttonFrame, text='Bill', font=('arial', 16, 'bold'), bg='gray20', fg='aliceblue',
