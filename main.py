@@ -170,7 +170,7 @@ billareaLabel.pack(fill=X)
 # Creating the scrollbar and text area
 scrollbar = Scrollbar(billframe, orient=VERTICAL)
 scrollbar.pack(side=RIGHT, fill=Y)
-textarea=Text(billframe, height=18, width=50, yscrollcommand=scrollbar.set)
+textarea=Text(billframe, height=18, width=54, yscrollcommand=scrollbar.set)
 textarea.pack()
 scrollbar.config(command=textarea.yview)
 
