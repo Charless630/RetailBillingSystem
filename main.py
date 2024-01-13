@@ -1,7 +1,21 @@
 from tkinter import *
 from tkinter import messagebox
-import random
+import random, os
 # Functionality PART
+
+if not os.path.exists('Bills'):
+    os.mkdir('Bills')
+
+def save_bill():
+    global billnumber
+    result = messagebox.askyesno('Confirm', 'Do you want to save the bill?')
+    if result:
+        bill_content = textarea.get(1.0, END)
+        file = open('Bills/ {billnumber}.txt', 'w')
+        file.write(bill_content)
+        file.close()
+        messagebox.showinfo('Saved', f'Bill Number {billnumber} is saved successfully!')
+        billnumber = random.randint(500, 1000)
 
 billnumber = random.randint(500, 1000)
 
@@ -13,6 +27,7 @@ def bill_area():
     elif cosmeticpriceEntry.get()=='0 Ft' and grocerypriceEntry.get()=='0 Ft' and drinkspriceEntry.get()=='0 Ft':
         messagebox.showerror('Error', 'No Products are Selected!')
     else:
+        textarea.delete(1.0, END)
         textarea.insert(END, '\t\t**Welcome Customer!**\n')
         textarea.insert(END, f'\nBill Number: {billnumber}')
         textarea.insert(END, f'\nCustomer Name: {nameEntry.get()}')
@@ -56,11 +71,25 @@ def bill_area():
             textarea.insert(END, f'\nFrooti\t\t\t{frootiEntry.get()}\t\t\t{frootiprice} Ft')
         if cocacolaEntry.get()!='0':
             textarea.insert(END, f'\nCoca Cola\t\t\t{cocacolaEntry.get()}\t\t\t{cocacolaprice} Ft')
+        textarea.insert(END, '\n------------------------------------------------------')
+        
+        if cosmetictaxEntry.get()!='0.0 Ft':
+            textarea.insert(END, f'\nCosmetic Tax\t\t\t\t{cosmetictaxEntry.get()} Ft')
+        if grocerytaxEntry.get()!='0.0 Ft':
+            textarea.insert(END, f'\nGrocery Tax\t\t\t\t{grocerytaxEntry.get()} Ft')
+        if drinkstaxEntry.get()!='0.0 Ft':
+            textarea.insert(END, f'\nDrinks Tax\t\t\t\t{drinkstaxEntry.get()} Ft')
+        textarea.insert(END, '\n------------------------------------------------------')
+        textarea.insert(END, f'\n\nTotal Bill\t\t\t\t{totalbill} Ft')
+        textarea.insert(END, '\n------------------------------------------------------')
+        save_bill()
 
 def total():
     global soapprice, facecreamprice, facewashprice, hairsprayprice, hairgelprice, bodylotionprice
     global riceprice, oilprice, daalprice, wheatprice, sugarprice, teaprice
     global maazaprice, pepsiprice, spriteprice, dewprice, frootiprice, cocacolaprice
+    global cosmetictax, grocerytax, drinkstax
+    global totalbill
     # cosmetic price calculation
     soapprice = int(bathsoapEntry.get())*20
     facecreamprice = int(facecreamEntry.get())*50
@@ -105,6 +134,8 @@ def total():
     drinkstax = totaldrinkprice*0.27
     drinkstaxEntry.delete(0, END)
     drinkstaxEntry.insert(0, f'{drinkstax} Ft')
+    
+    totalbill=totalcosmeticprice+totalgroceryprice+totaldrinkprice+cosmetictax+grocerytax+drinkstax
     
 # GUI PART
 root = Tk()
