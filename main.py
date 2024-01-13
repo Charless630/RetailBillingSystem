@@ -2,9 +2,51 @@ from tkinter import *
 # Functionality PART
 
 def total():
-    soapprice = int(bathsoapEntry.get())*20
+    # cosmetic price calculation
+    soapprice = int(bathsoapEntry.get())*200
+    facecreamprice = int(facecreamEntry.get())*500
+    facewashprice = int(facewashEntry.get())*250
+    hairsprayprice = int(hairsprayEntry.get())*500
+    hairgelprice = int(hairgelEntry.get())*1500
+    bodylotionprice = int(bodylotionEntry.get())*750
     
-
+    totalcosmeticprice = soapprice+facecreamprice+facewashprice+hairsprayprice+hairgelprice+bodylotionprice
+    cosmeticpriceEntry.delete(0, END)
+    cosmeticpriceEntry.insert(0, f'{totalcosmeticprice} Ft')
+    cosmetictax = totalcosmeticprice*0.27
+    cosmetictaxEntry.delete(0, END)
+    cosmetictaxEntry.insert(0, f'{cosmetictax} Ft')
+    
+    # grocery price calculation
+    riceprice = int(riceEntry.get())*200
+    oilprice = int(oilEntry.get())*800
+    daalprice = int(daalEntry.get())*120
+    wheatprice = int(wheatEntry.get())*200
+    sugarprice = int(sugarEntry.get())*700
+    teaprice = int(teaEntry.get())*450
+    
+    totalgroceryprice = riceprice+oilprice+daalprice+wheatprice+sugarprice+teaprice
+    grocerypriceEntry.delete(0, END)
+    grocerypriceEntry.insert(0, f'{totalgroceryprice} Ft')
+    grocerytax = totalgroceryprice*0.27
+    grocerytaxEntry.delete(0, END)
+    grocerytaxEntry.insert(0, f'{grocerytax} Ft')
+    
+     # cold drink price calculation
+    maazaprice = int(maazaEntry.get())*200
+    pepsiprice = int(pepsiEntry.get())*500
+    spriteprice = int(spriteEntry.get())*450
+    dewprice = int(dewEntry.get())*700
+    frootiprice = int(frootiEntry.get())*150
+    cocacolaprice = int(cocacolaEntry.get())*500
+    
+    totaldrinkprice = maazaprice+pepsiprice+spriteprice+dewprice+frootiprice+cocacolaprice
+    drinkspriceEntry.delete(0, END)
+    drinkspriceEntry.insert(0, f'{totaldrinkprice} Ft')
+    drinkstax = totaldrinkprice*0.27
+    drinkstaxEntry.delete(0, END)
+    drinkstaxEntry.insert(0, f'{grocerytax} Ft')
+    
 # GUI PART
 root = Tk()
 root.title("Retail Billing System")
@@ -55,36 +97,42 @@ bathsoapLabel = Label(cosmeticsFrame, text='Bath Soap', font=('times new roman',
 bathsoapLabel.grid(row=0, column=0, pady=9, padx=10, sticky='w')
 bathsoapEntry = Entry(cosmeticsFrame, font=('arial', 15, 'bold'), width=10, bd=5)
 bathsoapEntry.grid(row=0, column=1, pady=9, padx=10)
+bathsoapEntry.insert(0,0)
 
 facecreamLabel = Label(cosmeticsFrame, text='Face Cream', font=('times new roman', 15, 'bold'), bg='gray20',
                   fg='aliceblue')
 facecreamLabel.grid(row=1, column=0, pady=9, padx=10, sticky='w')
 facecreamEntry = Entry(cosmeticsFrame, font=('arial', 15, 'bold'), width=10, bd=5)
 facecreamEntry.grid(row=1, column=1, pady=9, padx=10)
+facecreamEntry.insert(0,0)
 
 facewashLabel = Label(cosmeticsFrame, text='Face Wash', font=('times new roman', 15, 'bold'), bg='gray20',
                   fg='aliceblue')
 facewashLabel.grid(row=2, column=0, pady=9, padx=10, sticky='w')
 facewashEntry = Entry(cosmeticsFrame, font=('arial', 15, 'bold'), width=10, bd=5)
 facewashEntry.grid(row=2, column=1, pady=9, padx=10)
+facewashEntry.insert(0,0)
 
 hairsprayLabel = Label(cosmeticsFrame, text='Hair Spray', font=('times new roman', 15, 'bold'), bg='gray20',
                   fg='aliceblue')
 hairsprayLabel.grid(row=3, column=0, pady=9, padx=10, sticky='w')
 hairsprayEntry = Entry(cosmeticsFrame, font=('arial', 15, 'bold'), width=10, bd=5)
 hairsprayEntry.grid(row=3, column=1, pady=9, padx=10)
+hairsprayEntry.insert(0,0)
 
 hairgelLabel = Label(cosmeticsFrame, text='Hair Gel', font=('times new roman', 15, 'bold'), bg='gray20',
                   fg='aliceblue')
 hairgelLabel.grid(row=4, column=0, pady=9, padx=10, sticky='w')
 hairgelEntry = Entry(cosmeticsFrame, font=('arial', 15, 'bold'), width=10, bd=5)
 hairgelEntry.grid(row=4, column=1, pady=9, padx=10)
+hairgelEntry.insert(0,0)
 
 bodylotionLabel = Label(cosmeticsFrame, text='Body Lotion', font=('times new roman', 15, 'bold'), bg='gray20',
                   fg='aliceblue')
 bodylotionLabel.grid(row=5, column=0, pady=9, padx=10, sticky='w')
 bodylotionEntry = Entry(cosmeticsFrame, font=('arial', 15, 'bold'), width=10, bd=5)
 bodylotionEntry.grid(row=5, column=1, pady=9, padx=10)
+bodylotionEntry.insert(0,0)
 
 groceryFrame = LabelFrame(productsFrame, text='Grocery', font=('times new roman', 15, 'bold'),
                                     fg='antiquewhite', bd=8, relief=GROOVE, bg='gray20')
@@ -95,36 +143,42 @@ riceLabel = Label(groceryFrame, text='Rice', font=('times new roman', 15, 'bold'
 riceLabel.grid(row=0, column=0, pady=9, padx=10, sticky='w')
 riceEntry = Entry(groceryFrame, font=('arial', 15, 'bold'), width=10, bd=5)
 riceEntry.grid(row=0, column=1, pady=9, padx=10)
+riceEntry.insert(0,0)
 
 oilLabel = Label(groceryFrame, text='Oil', font=('times new roman', 15, 'bold'), bg='gray20',
                   fg='aliceblue')
 oilLabel.grid(row=1, column=0, pady=9, padx=10, sticky='w')
 oilEntry = Entry(groceryFrame, font=('arial', 15, 'bold'), width=10, bd=5)
 oilEntry.grid(row=1, column=1, pady=9, padx=10)
+oilEntry.insert(0,0)
 
 daalLabel = Label(groceryFrame, text='Daal', font=('times new roman', 15, 'bold'), bg='gray20',
                   fg='aliceblue')
 daalLabel.grid(row=2, column=0, pady=9, padx=10, sticky='w')
 daalEntry = Entry(groceryFrame, font=('arial', 15, 'bold'), width=10, bd=5)
 daalEntry.grid(row=2, column=1, pady=9, padx=10)
+daalEntry.insert(0,0)
 
 wheatLabel = Label(groceryFrame, text='Wheat', font=('times new roman', 15, 'bold'), bg='gray20',
                   fg='aliceblue')
 wheatLabel.grid(row=3, column=0, pady=9, padx=10, sticky='w')
 wheatEntry = Entry(groceryFrame, font=('arial', 15, 'bold'), width=10, bd=5)
 wheatEntry.grid(row=3, column=1, pady=9, padx=10)
+wheatEntry.insert(0,0)
 
 sugarLabel = Label(groceryFrame, text='Sugar', font=('times new roman', 15, 'bold'), bg='gray20',
                   fg='aliceblue')
 sugarLabel.grid(row=4, column=0, pady=9, padx=10, sticky='w')
 sugarEntry = Entry(groceryFrame, font=('arial', 15, 'bold'), width=10, bd=5)
 sugarEntry.grid(row=4, column=1, pady=9, padx=10)
+sugarEntry.insert(0,0)
 
 teaLabel = Label(groceryFrame, text='Tea', font=('times new roman', 15, 'bold'), bg='gray20',
                   fg='aliceblue')
 teaLabel.grid(row=5, column=0, pady=9, padx=10, sticky='w')
 teaEntry = Entry(groceryFrame, font=('arial', 15, 'bold'), width=10, bd=5)
 teaEntry.grid(row=5, column=1, pady=9, padx=10)
+teaEntry.insert(0,0)
 
 drinksFrame = LabelFrame(productsFrame, text='Cold Drinks', font=('times new roman', 15, 'bold'),
                                     fg='antiquewhite', bd=8, relief=GROOVE, bg='gray20')
@@ -135,36 +189,42 @@ maazaLabel = Label(drinksFrame, text='Maaza', font=('times new roman', 15, 'bold
 maazaLabel.grid(row=0, column=0, pady=9, padx=10, sticky='w')
 maazaEntry = Entry(drinksFrame, font=('arial', 15, 'bold'), width=10, bd=5)
 maazaEntry.grid(row=0, column=1, pady=9, padx=10)
+maazaEntry.insert(0,0)
 
 pepsiLabel = Label(drinksFrame, text='Pepsi', font=('times new roman', 15, 'bold'), bg='gray20',
                   fg='aliceblue')
 pepsiLabel.grid(row=1, column=0, pady=9, padx=10, sticky='w')
 pepsiEntry = Entry(drinksFrame, font=('arial', 15, 'bold'), width=10, bd=5)
 pepsiEntry.grid(row=1, column=1, pady=9, padx=10)
+pepsiEntry.insert(0,0)
 
 spriteLabel = Label(drinksFrame, text='Sprite', font=('times new roman', 15, 'bold'), bg='gray20',
                   fg='aliceblue')
 spriteLabel.grid(row=2, column=0, pady=9, padx=10, sticky='w')
 spriteEntry = Entry(drinksFrame, font=('arial', 15, 'bold'), width=10, bd=5)
 spriteEntry.grid(row=2, column=1, pady=9, padx=10)
+spriteEntry.insert(0,0)
 
 dewLabel = Label(drinksFrame, text='Dew', font=('times new roman', 15, 'bold'), bg='gray20',
                   fg='aliceblue')
 dewLabel.grid(row=3, column=0, pady=9, padx=10, sticky='w')
 dewEntry = Entry(drinksFrame, font=('arial', 15, 'bold'), width=10, bd=5)
 dewEntry.grid(row=3, column=1, pady=9, padx=10)
+dewEntry.insert(0,0)
 
 frootiLabel = Label(drinksFrame, text='Frooti', font=('times new roman', 15, 'bold'), bg='gray20',
                   fg='aliceblue')
 frootiLabel.grid(row=4, column=0, pady=9, padx=10, sticky='w')
 frootiEntry = Entry(drinksFrame, font=('arial', 15, 'bold'), width=10, bd=5)
 frootiEntry.grid(row=4, column=1, pady=9, padx=10)
+frootiEntry.insert(0,0)
 
 cocacolaLabel = Label(drinksFrame, text='Coca Cola', font=('times new roman', 15, 'bold'), bg='gray20',
                   fg='aliceblue')
 cocacolaLabel.grid(row=5, column=0, pady=9, padx=10, sticky='w')
 cocacolaEntry = Entry(drinksFrame, font=('arial', 15, 'bold'), width=10, bd=5)
 cocacolaEntry.grid(row=5, column=1, pady=9, padx=10)
+cocacolaEntry.insert(0,0)
 
 billframe = Frame(productsFrame, bd=8, relief=GROOVE)
 billframe.grid(row=0, column=3, padx=10)
