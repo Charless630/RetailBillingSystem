@@ -1,19 +1,96 @@
 from tkinter import *
 from tkinter import messagebox
-import random, os
+import random, os, tempfile, smtplib
 # Functionality PART
+
+def send_email():
+    def send_gmail():
+        try:
+            ob = smtplib.SMTP('smtp.gmail.com', 587)
+            ob.starttls()
+            ob.login(senderEntry.get(), passwordEntry.get())
+            message = email_textarea.get(1.0, END)
+            ob.sendmail(senderEntry.get(), recieverEntry.get(), message)
+            ob.quit()
+            messagebox.showinfo('Success', 'Email Sent Successfully!')
+        except:
+            messagebox.showerror('Error', 'Something Went Wrong. Please Try Again!')
+        
+        
+    if textarea.get(1.0, END) == '\n':
+        messagebox.showerror('Error', 'Bill is Empty!')
+    else:
+        root1=Toplevel()
+        root1.title('Send Email')
+        root1.config(bg='gray20')
+        root1.resizable(0,0)
+        
+        senderFrame = LabelFrame(root1, text='SENDER', font=('arial', 16, 'bold'), bd=6, bg='gray20',
+                                 fg='antiquewhite')
+        senderFrame.grid(row=0, column=0, padx=40, pady=20)
+        
+        senderLabel=Label(senderFrame, text="Sender's Email", font=('arial', 14, 'bold'), bg='gray20',
+                                 fg='antiquewhite')
+        senderLabel.grid(row=0, column=0, padx=10, pady=10)
+        
+        senderEntry = Entry(senderFrame, font=('arial', 14, 'bold'), bd=2, width=23, relief=RIDGE)
+        senderEntry.grid(row=0, column=1, padx=10, pady=8)
+        
+        passwordLabel=Label(senderFrame, text="Password", font=('arial', 14, 'bold'), bg='gray20',
+                                 fg='antiquewhite')
+        passwordLabel.grid(row=1, column=0, padx=10, pady=10)
+        
+        passwordEntry = Entry(senderFrame, font=('arial', 14, 'bold'), bd=2, width=23, relief=RIDGE,
+                              show='*')
+        passwordEntry.grid(row=1, column=1, padx=10, pady=8)
+        
+        recipientFrame = LabelFrame(root1, text='RECIPIENT', font=('arial', 16, 'bold'), bd=6, bg='gray20',
+                                 fg='antiquewhite')
+        recipientFrame.grid(row=1, column=0, padx=40, pady=20)
+        
+        recieverLabel=Label(recipientFrame, text="Email Address", font=('arial', 14, 'bold'), bg='gray20',
+                                 fg='antiquewhite')
+        recieverLabel.grid(row=0, column=0, padx=10, pady=10)
+        
+        recieverEntry = Entry(recipientFrame, font=('arial', 14, 'bold'), bd=2, width=23, relief=RIDGE)
+        recieverEntry.grid(row=0, column=1, padx=10, pady=8)
+        
+        messageLabel=Label(recipientFrame, text="Message", font=('arial', 14, 'bold'), bg='gray20',
+                                 fg='antiquewhite')
+        messageLabel.grid(row=1, column=0, padx=10, pady=10, columnspan=2)
+        
+        email_textarea=Text(recipientFrame, font=('arial', 14, 'bold'), bd=2, relief=SUNKEN,
+                            width=43, height=11)
+        email_textarea.grid(row=2, column=0, columnspan=2)
+        email_textarea.delete(1.0, END)
+        email_textarea.insert(END, textarea.get(1.0, END).replace('=', '').replace('-', '').replace('\t\t\t', '\t\t'))
+        
+        sendButton = Button(root1, text='SEND', font=('arial', 16, 'bold'), width=15, command=send_gmail)
+        sendButton.grid(row=2, column=0, pady=10)
+        
+        
+        root1.mainloop()
 
 def search_bill():
     for i in os.listdir('Bills/'):
-        if i.split('.')[0]==billnumberEntry.get():
-            f = open(f'Bills/{i}','r')
-            textarea.delete(1.0, END)
+        if i.split('.')[0] == billnumberEntry.get():
+            f = open(f'Bills/{i}', 'r')
+            textarea.delete('1.0', END)
             for data in f:
                 textarea.insert(END, data)
             f.close()
             break
     else:
         messagebox.showerror('Error', 'Bill Not Found!')
+        
+def print_bill():
+    if textarea.get(1.0, END) == '\n':
+        messagebox.showerror('Error', 'Bill is Empty!')
+    else:
+        file = tempfile.mktemp('.txt')
+        open(file, 'w').write(textarea.get(1.0, END))
+        os.startfile(file, 'print')
+
 
 if not os.path.exists('Bills'):
     os.mkdir('Bills')
@@ -23,7 +100,7 @@ def save_bill():
     result = messagebox.askyesno('Confirm', 'Do you want to save the bill?')
     if result:
         bill_content = textarea.get(1.0, END)
-        file = open(f'Bills/ {billnumber}.txt', 'w')
+        file = open(f'Bills/{billnumber}.txt', 'w')
         file.write(bill_content)
         file.close()
         messagebox.showinfo('Saved', f'Bill Number {billnumber} is saved successfully!')
@@ -68,7 +145,7 @@ def bill_area():
         if wheatEntry.get()!='0':
             textarea.insert(END, f'\nWheat\t\t\t{wheatEntry.get()}\t\t\t{wheatprice} Ft')
         if sugarEntry.get()!='0':
-            textarea.insert(END, f'\nSugar\t\t\t{sugarprice.get()}\t\t\t{sugarprice} Ft')
+            textarea.insert(END, f'\nSugar\t\t\t{sugarEntry.get()}\t\t\t{sugarprice} Ft')
         if teaEntry.get()!='0':
             textarea.insert(END, f'\nTea\t\t\t{teaEntry.get()}\t\t\t{teaprice} Ft')
         if maazaEntry.get()!='0':
@@ -153,6 +230,7 @@ def total():
 root = Tk()
 root.title("Retail Billing System")
 root.geometry("1270x685")
+root.resizable(0,0)
 root.iconbitmap('icon.ico')
 
 headingLabel = Label(root, text='Retail Billing System', font=('times new roman', 30, 'bold'),
@@ -395,11 +473,11 @@ billButton = Button(buttonFrame, text='Bill', font=('arial', 16, 'bold'), bg='gr
 billButton.grid(row=0, column=1, pady=20, padx=5)
 
 emailButton = Button(buttonFrame, text='Email', font=('arial', 16, 'bold'), bg='gray20', fg='aliceblue',
-                     bd=5, width=8, pady=10)
+                     bd=5, width=8, pady=10, command=send_email)
 emailButton.grid(row=0, column=2, pady=20, padx=5)
 
 printButton = Button(buttonFrame, text='Print', font=('arial', 16, 'bold'), bg='gray20', fg='aliceblue',
-                     bd=5, width=8, pady=10)
+                     bd=5, width=8, pady=10, command=print_bill)
 printButton.grid(row=0, column=3, pady=20, padx=5)
 
 clearButton = Button(buttonFrame, text='Clear', font=('arial', 16, 'bold'), bg='gray20', fg='aliceblue',

@@ -1,14 +1,16 @@
 		**Welcome Customer!**
 
-Bill Number: 854
-Customer Name: as
-Customer Phone Number: as
+Bill Number: 556
+Customer Name: Mario
+Customer Phone Number: 2342
 ======================================================Product			Quantity			Price
 ======================================================
-Rice			1			20 Ft
+Bath Soap			1			20 Ft
+Sprite			2			90 Ft
 ------------------------------------------------------
-Grocery Tax				5.4 Ft Ft
+Cosmetic Tax				5.4 Ft Ft
+Drinks Tax				24.3 Ft Ft
 ------------------------------------------------------
 
-Total Bill				25.4 Ft
+Total Bill				139.70000000000002 Ft
 ------------------------------------------------------
