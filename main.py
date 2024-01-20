@@ -3,6 +3,18 @@ from tkinter import messagebox
 import random, os
 # Functionality PART
 
+def search_bill():
+    for i in os.listdir('Bills/'):
+        if i.split('.')[0]==billnumberEntry.get():
+            f = open(f'Bills/{i}','r')
+            textarea.delete(1.0, END)
+            for data in f:
+                textarea.insert(END, data)
+            f.close()
+            break
+    else:
+        messagebox.showerror('Error', 'Bill Not Found!')
+
 if not os.path.exists('Bills'):
     os.mkdir('Bills')
 
@@ -11,7 +23,7 @@ def save_bill():
     result = messagebox.askyesno('Confirm', 'Do you want to save the bill?')
     if result:
         bill_content = textarea.get(1.0, END)
-        file = open('Bills/ {billnumber}.txt', 'w')
+        file = open(f'Bills/ {billnumber}.txt', 'w')
         file.write(bill_content)
         file.close()
         messagebox.showinfo('Saved', f'Bill Number {billnumber} is saved successfully!')
@@ -172,7 +184,8 @@ billnumberLabel.grid(row=0, column=4, padx=20, pady=2)
 billnumberEntry = Entry(customer_details_frame, font=('arial', 15), bd=7, width=18)
 billnumberEntry.grid(row=0, column=5, padx=8)
 
-searchButton = Button(customer_details_frame, text='Search', font=('arial', 12, 'bold'), bd=7, width=10)
+searchButton = Button(customer_details_frame, text='Search',
+                      font=('arial', 12, 'bold'), bd=7, width=10, command=search_bill)
 searchButton.grid(row=0, column=6, padx=20, pady=8)
 
 productsFrame = Frame(root)
